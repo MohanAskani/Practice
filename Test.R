@@ -21,3 +21,18 @@ flights %>% select(month, day, sched_dep_time, carrier, flight, dep_delay, arr_d
   unite(col = "delays", dep_delay:arr_delay, sep = ";")
 
 
+library(gapminder)
+library(tidyverse)
+
+gapminder_wide <- gapminder %>% filter(country %in% c("France","Germany")) %>% 
+  select(country, year, gdpPercap) %>% 
+  pivot_wider(names_from = year, values_from = gdpPercap, names_prefix = 'Y')
+
+gapminder_long <- gapminder_wide %>% 
+  pivot_longer(cols = c(starts_with('Y')), names_to = "year", values_to = "gdpPercap") %>% 
+  mutate(year = parse_number(year))
+
+head(gapminder_wide)
+head(gapminder_long)
+
+
