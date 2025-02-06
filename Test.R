@@ -35,4 +35,51 @@ gapminder_long <- gapminder_wide %>%
 head(gapminder_wide)
 head(gapminder_long)
 
+install.packages("Lahman", repos='https://cran.r-project.org', dependencies=TRUE)
+
+library(Lahman)
+head(LahmanData,20)
+
+Batting_t <- tibble(Batting)
+Pitching_t <- tibble(Pitching)
+Fielding_t <- tibble(Fielding)
+
+labels(Batting_t)
+labels(Pitching_t)
+labels(Fielding_t)
+glimpse(Fielding_t)
+
+Batting_t %>% count(playerID, yearID, stint) %>% filter(n>1)
+
+Pitching_t %>% count(playerID, yearID, stint) %>% filter(n>1)
+
+Fielding_t %>% count(playerID, yearID) %>% filter(n>1) %>% 
+  summarise(max_n = max(n))
+
+Batting.small <- Batting_t %>% select(playerID,yearID,stint,teamID, lgID, G, AB, HR)
+head(Batting.small)
+
+
+People.small <- People %>% select(playerID, nameGiven)
+head(People.small)
+
+Batting.small %>% left_join(People.small, by = "playerID") %>% 
+  filter(nameGiven =="David Allan")
+
+
+(People.small %>% anti_join(Batting.small, by = "playerID"))$playerID
+
+head(Fielding_t)
+
+dim(Fielding_t %>% 
+  group_by(playerID) %>% 
+  summarise(InnOuts = sum(InnOuts)) %>% 
+  filter(InnOuts == 1) %>% 
+  left_join(People, by="playerID") %>% 
+  select(nameGiven, birthDate, debut) %>% 
+  arrange(debut))
+
+
+
+
 
