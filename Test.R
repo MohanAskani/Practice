@@ -82,4 +82,46 @@ dim(Fielding_t %>%
 
 
 
+# Visualization Lecture
+
+library(tidyverse)
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy, color = class)) + geom_point()
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy, shape = class)) + geom_point()
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(shape = 21)
+
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy, col = drv)) +
+  geom_point() + geom_smooth()
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy, color = drv)) + geom_point() + geom_smooth()
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + geom_smooth() + facet_grid(drv ~ cyl, scales = "free")
+
+mpg %>% ggplot(mapping = aes(x = hwy), color = drv) + 
+  geom_density()
+
+mpg %>% ggplot(mapping = aes(x = class)) + geom_bar()
+
+mpg %>% ggplot(aes(x=drv,y=class)) + geom_count()
+
+mpg %>% ggplot(aes(x=drv,y=class,size = count(drv))) + geom_point()
+
+mpg %>% ggplot(mapping = aes(x = displ, y = hwy, shape = class)) + geom_point() +
+  labs(title = "title")+
+  theme_classic()
+
+
+
+
+
+
+
+
+
+
 
