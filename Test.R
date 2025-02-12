@@ -117,11 +117,19 @@ mpg %>% ggplot(mapping = aes(x = displ, y = hwy, shape = class)) + geom_point() 
 
 
 
+# Exercise in class
+library(babynames)
+head(babynames)
 
-
-
-
-
+babynames %>% filter(name == "Dakota") %>% 
+  ggplot(mapping = aes(x = year, y = n, color = sex)) +
+  geom_line() +
+  ggtitle("Frequency of the 'Dakota' Baby Name in US") + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(x = "Year", y = "Number") +
+  xlim(1980,2016)+
+  ylim(0,6300)+
+  scale_color_discrete(labels = c("Female", "Male"))
 
 
 
