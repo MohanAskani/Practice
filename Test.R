@@ -132,4 +132,26 @@ babynames %>% filter(name == "Dakota") %>%
   scale_color_discrete(labels = c("Female", "Male"))
 
 
+library(plotly)
 
+library(readxl)
+
+iris %>% plot_ly(x = ~Sepal.Length, y = ~Petal.Length)
+
+
+library(gapminder)
+head(gapminder)
+
+
+library(gganimate)
+install.packages("gganimate")
+
+gapminder %>% group_by(continent, year) %>% 
+  summarise(GDP = mean(gdpPercap), lifeExp = mean(lifeExp),Sz = sum(pop), .groups = "drop") %>% 
+  ggplot(aes(x=GDP, y=lifeExp, colour = continent, size = Sz)) +
+  geom_point()+
+  ggtitle("Title")+
+  transition_time(year)
+
+install.packages("gifski")
+library(gifski)
