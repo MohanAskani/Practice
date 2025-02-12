@@ -150,8 +150,22 @@ gapminder %>% group_by(continent, year) %>%
   summarise(GDP = mean(gdpPercap), lifeExp = mean(lifeExp),Sz = sum(pop), .groups = "drop") %>% 
   ggplot(aes(x=GDP, y=lifeExp, colour = continent, size = Sz)) +
   geom_point()+
-  ggtitle("Title")+
+  ggtitle("{frame_time}")+
   transition_time(year)
 
 install.packages("gifski")
 library(gifski)
+
+head(mtcars)
+
+gr <- mtcars %>% ggplot(aes(factor(cyl), mpg))+
+  geom_boxplot() + labs()
+
+
+
+
+
+
+
+
+
