@@ -162,6 +162,15 @@ gr <- mtcars %>% ggplot(aes(factor(cyl), mpg))+
   geom_boxplot() + labs()
 
 
+# Learning Functions
+
+X <- 2
+sample_func <- function(x,p){
+  X^p
+}
+sample_func(3,3)
+
+
 
 
 
