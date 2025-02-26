@@ -171,6 +171,32 @@ sample_func <- function(x,p){
 sample_func(3,3)
 
 
+f <- function(x,...)
+{
+  dots <- list(...)                   
+  if(length(dots) == 0) return(NULL) 
+  cat("The arguments in ... are\n")
+  print(dots)
+  f(...)                              
+}
+f(1,2)
+
+
+
+rsquared <- function(x, value = as.formula('r.squared')){
+  print(summary(x)$value)
+}
+
+model1 <- lm(mpg$hwy ~ mpg$cyl)
+
+class(model1)
+
+rsquared(model1)
+
+
+
+
+
 
 
 
