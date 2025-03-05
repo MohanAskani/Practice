@@ -195,12 +195,84 @@ rsquared(model1)
 
 
 
+# Exercise
+
+mpg_split <- split(mpg, mpg$manufacturer)
+
+models <- mpg_split %>% 
+  map(~ lm(hwy ~ displ, data = .x)) %>% 
+  map_dbl(~summary(.x)$r.squared) %>% 
+  tibble(manufacturer = names(.), R_squared = .)
+  
+models
+
+models %>% filter(R_squared < 0.1)
+
+models <- mpg %>% 
+  split(.$manufacturer) %>% 
+  map(~ lm(hwy ~ displ, data = .x)) %>% 
+  map_dbl(~summary(.x)$r.squared) %>% 
+  tibble(manufacturer = names(.), R_squared = .)
+
+library(rvest)
+library(tidyverse)
+URL <- "https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films"
+
+page <- URL %>% read_html() 
+table <- URL %>% read_html() %>% html_elements("table") %>% html_table(fill = TRUE)
+
+write_lines(page, file = "text.txt")
+write_lines(page, file = "text.html")
+
+movies_tables <- table[3:8]
+
+table_cleaned <- URL %>% read_html() %>% html_elements("table") %>% html_table(fill = TRUE) %>% map(janitor::clean_names)
+table_cleaned[[1]]
+table[[1]]
+URL %>% read_html() %>% html_elements("h1") %>% html_text()
+URL %>% read_html() %>% html_elements("h2") %>% html_text()
+URL %>% read_html() %>% html_elements("h3") %>% html_text()
+URL %>% read_html() %>% html_elements("h4") %>% html_text()
+
+
+paragraphs <- URL %>% read_html() %>% html_elements("p") 
+paragraphs[2] %>% html_text()
+
+
+rutgers_stat_dept_url <- "https://statistics.rutgers.edu/people-pages/faculty"
+rutgers_stat_dept <- rutgers_stat_dept_url %>% read_html()
+
+rutgers_stat_dept %>% html_elements(".hasTooltip span") %>% html_text()
+
+url <- "http://www.omdbapi.com/?apikey=29edb997&i=tt3896198"
+browseURL(url)
+
+url2 <- "http://www.omdbapi.com/?apikey=29edb997&i=tt3896198&plot=short&r=JSON?"
+browseURL(url2)
+
+url3 <- "http://www.omdbapi.com/?apikey=29edb997&i=tt3896198&s=Iron&plot=short&r=json?"
+browseURL(url3)
+
+library(curl)
+json_result <- url %>%  curl() %>%  readLines()
+
+movie <- url3 %>% fromJSON() %>% pluck("Search")
+movie <- url %>% fromJSON()
+movie$Actors
+
+
+function_actors <- function(url){
+  movie <- url %>% fromJSON()
+  actors <- movie$Actors
+  actors <- str_trim(str_split(actors,",")[[1]])
+  return(actors)
+}
+
+function_actors(url)
 
 
 
 
-
-
-
-
+library(nycflights13)
+flights %>% tabyl(carrier, month) %>% adorn_totals()
 
